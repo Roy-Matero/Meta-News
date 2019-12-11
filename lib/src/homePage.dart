@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'categories.dart';
 import 'newsCard.dart';
+import 'network/jsonFeed.dart';
+
 
 class MyHomePage extends StatefulWidget {
 
@@ -69,6 +71,11 @@ class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateM
                 }),
               ),
             ),
+            SizedBox(height: 50),
+            Center(
+              child: JsonParse(),
+            ),
+            SizedBox(height: 50),
             Container(
               padding: EdgeInsets.symmetric(horizontal: 30),
               height: 400,

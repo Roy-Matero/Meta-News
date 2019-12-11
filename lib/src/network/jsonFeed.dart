@@ -15,18 +15,31 @@ class _JsonParseState extends State<JsonParse> {
   List data;
   Future<String> getData() async {
     var res = await http.get(Uri.encodeFull(jsonUrl), headers: {"Accept": "application/json"});
-  }
 
-  setState((){
-    var resBody = json.decode(res.body);
-    data = resBody["results"]
-  });
+    setState(() {
+      var resBody = json.decode(res.body);
+      data = resBody["results"];
+    });
+
+  }
 
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
     return Container(
-      child: Text(),
+      child: ListView.builder(
+        itemCount: data == null ? 0 : data.length,
+          itemBuilder: (BuildContext context, int index){
+          return new Container(
+            child: Text(data[index]["name"]),
+          );
+          },
+      ),
     );
+  }
+  @override
+  void initState(){
+    super.initState();
+    this.getData();
   }
 }

@@ -71,11 +71,9 @@ class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateM
                 }),
               ),
             ),
-            SizedBox(height: 50),
-            Center(
-              child: JsonParse(),
-            ),
-            SizedBox(height: 50),
+            //SizedBox(height: 50),
+            //Container(child: JsonParse()),
+            //SizedBox(height: 50),
             Container(
               padding: EdgeInsets.symmetric(horizontal: 30),
               height: 400,

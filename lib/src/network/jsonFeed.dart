@@ -27,14 +27,7 @@ class _JsonParseState extends State<JsonParse> {
   Widget build(BuildContext context) {
     // TODO: implement build
     return Container(
-      child: ListView.builder(
-        itemCount: data == null ? 0 : data.length,
-          itemBuilder: (BuildContext context, int index){
-          return new Container(
-            child: Text(data[index]["name"]),
-          );
-          },
-      ),
+      child: Text(data[1]["name"]),
     );
   }
   @override
@@ -43,3 +36,14 @@ class _JsonParseState extends State<JsonParse> {
     this.getData();
   }
 }
+
+
+/* ListView.builder(
+        itemCount: data == null ? 0 : data.length,
+          itemBuilder: (BuildContext context, int index){
+          return new Container(
+            child: Text(data[index]["name"]),
+          );
+          },
+      ),
+     */

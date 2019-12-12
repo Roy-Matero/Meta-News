@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-
 class NewsCard extends StatefulWidget {
   final int index;
   NewsCard(this.index);
@@ -14,32 +13,71 @@ class _NewsCardState extends State<NewsCard> {
   _NewsCardState(this.index);
 
   @override
-  Widget build(BuildContext context){
-    return Column(
-      children: <Widget>[
-        SizedBox(height: 5),
-        Container(
-          padding: EdgeInsets.only(bottom: 20),
-          constraints: BoxConstraints(minWidth: double.infinity),
-          height: 200,
-          decoration: BoxDecoration(
-            color: Colors.green,
-            image: DecorationImage(image: ExactAssetImage('lib/images/image_${widget.index}.jpg'),
-            fit: BoxFit.cover,
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(context, NewsDetail(index));
+      },
+      child: Column(
+        children: <Widget>[
+          SizedBox(height: 5),
+          Container(
+            padding: EdgeInsets.only(bottom: 20),
+            constraints: BoxConstraints(minWidth: double.infinity),
+            height: 200,
+            decoration: BoxDecoration(
+              color: Colors.green,
+              image: DecorationImage(
+                image: ExactAssetImage('lib/images/image_$index.jpg'),
+                fit: BoxFit.cover,
+              ),
+              borderRadius: BorderRadius.all(Radius.circular(30)),
+              gradient: LinearGradient(colors: [Colors.blue, Colors.purple]),
             ),
-            borderRadius: BorderRadius.all(Radius.circular(30)),
-            gradient: LinearGradient(colors: [Colors.blue, Colors.purple]),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: <Widget>[
+                Text("This is where the feed text will appear"),
+              ],
+            ),
           ),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: <Widget>[
-              Text("This is where the feed text will appear"),
-            ],
-          ),
-        ),
-        SizedBox(height: 10),
-      ],
+          SizedBox(height: 10),
+        ],
+      ),
     );
   }
 }
 
+class NewsDetail extends MaterialPageRoute<Null> {
+  final index;
+
+  NewsDetail(this.index)
+      : super(builder: (BuildContext context) {
+          return Scaffold(
+            appBar: AppBar(
+              actions: <Widget>[
+                IconButton(
+                  icon: Icon(Icons.close),
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                ),
+              ],
+            ),
+            body: Container(
+              padding: EdgeInsets.symmetric(vertical: 200),
+              constraints: BoxConstraints(minWidth: double.infinity),
+              decoration: BoxDecoration(
+                color: Colors.green,
+                image: DecorationImage(
+                  image: ExactAssetImage('lib/images/image_$index.jpg'),
+                  fit: BoxFit.cover,
+                ),
+                borderRadius: BorderRadius.all(Radius.circular(30)),
+                gradient: LinearGradient(colors: [Colors.blue, Colors.purple]),
+              ),
+              child: ListView(),
+            ),
+          );
+        });
+}

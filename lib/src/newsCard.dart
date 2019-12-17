@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 
 class NewsCard extends StatefulWidget {
   final int index;
@@ -31,7 +32,7 @@ class _NewsCardState extends State<NewsCard> {
                 image: ExactAssetImage('lib/images/image_$index.jpg'),
                 fit: BoxFit.cover,
               ),
-              borderRadius: BorderRadius.all(Radius.circular(30)),
+              borderRadius: BorderRadius.all(Radius.circular(20)),
               gradient: LinearGradient(colors: [Colors.blue, Colors.purple]),
             ),
             child: Column(
@@ -55,6 +56,7 @@ class NewsDetail extends MaterialPageRoute<Null> {
       : super(builder: (BuildContext context) {
           return Scaffold(
             appBar: AppBar(
+              title: Text("Darps News"),
               actions: <Widget>[
                 IconButton(
                   icon: Icon(Icons.close),
@@ -65,18 +67,30 @@ class NewsDetail extends MaterialPageRoute<Null> {
               ],
             ),
             body: Container(
-              padding: EdgeInsets.symmetric(vertical: 200),
-              constraints: BoxConstraints(minWidth: double.infinity),
-              decoration: BoxDecoration(
-                color: Colors.green,
-                image: DecorationImage(
-                  image: ExactAssetImage('lib/images/image_$index.jpg'),
-                  fit: BoxFit.cover,
-                ),
-                borderRadius: BorderRadius.all(Radius.circular(30)),
-                gradient: LinearGradient(colors: [Colors.blue, Colors.purple]),
+              child: ListView(
+                children: <Widget>[
+                  Container(
+                    padding: EdgeInsets.symmetric(vertical: 200),
+                    constraints: BoxConstraints(minWidth: double.infinity),
+                    decoration: BoxDecoration(
+                      color: Colors.green,
+                      image: DecorationImage(
+                        image: ExactAssetImage('lib/images/image_$index.jpg'),
+                        fit: BoxFit.cover,
+                      ),
+                      borderRadius: BorderRadius.all(Radius.circular(15)),
+                      gradient:
+                          LinearGradient(colors: [Colors.blue, Colors.purple]),
+                    ),
+                  ),
+                  Column(
+                    children: <Widget>[
+                      Text("Detailed Full story appears here "),
+                      Image.asset('lib/images/image_$index.jpg'),
+                    ],
+                  ),
+                ],
               ),
-              child: ListView(),
             ),
           );
         });

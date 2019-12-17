@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "214929715224",
+    "firebase_url": "https://darps-news.firebaseio.com",
+    "project_id": "darps-news",
+    "storage_bucket": "darps-news.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:214929715224:android:274f3dc51cd97991fd136d",
+        "android_client_info": {
+          "package_name": "com.codelabshub.darpsnews"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "214929715224-f4ffl9eq538ramcq31ttk2rj6cu7efsk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA1Nq6Dhp8MXgmhQRtiKl_numnuaNios00"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "214929715224-f4ffl9eq538ramcq31ttk2rj6cu7efsk.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -51,22 +51,6 @@ class _MyHomePageState extends State<MyHomePage>
           ],
         ),
       ),
-      drawer: Drawer(
-        child: SafeArea(
-          child: Container(
-            color: Colors.black,
-            child: ListView.builder(
-              itemCount: 3,
-              itemBuilder: (BuildContext context, int index) {
-                return RaisedButton(
-                    child: Text("BUTTON $index"),
-                    onPressed: () {},
-                    color: Colors.green);
-              },
-            ),
-          ),
-        ),
-      ),
       body: TabBarView(controller: _tabController, children: <Widget>[
         Container(
           decoration: BoxDecoration(
@@ -107,7 +91,7 @@ class _MyHomePageState extends State<MyHomePage>
           decoration: BoxDecoration(
             gradient: LinearGradient(colors: [Colors.green, Colors.red]),
           ),
-          //child: JsonParse(),
+          //child: NewsApi(),
         ),
       ]),
     );

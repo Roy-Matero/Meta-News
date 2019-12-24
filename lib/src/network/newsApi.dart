@@ -1,3 +1,4 @@
+import 'package:darps_news/src/categories.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
 import 'dart:convert';
@@ -41,16 +42,20 @@ class Article {
 }
 
 class NewsApi extends StatefulWidget {
-  NewsApi({Key key}) : super(key: key);
+  final int index;
+  NewsApi(this.index, {Key key}) : super(key: key);
 
-  _NewsApiState createState() => _NewsApiState();
+  _NewsApiState createState() => _NewsApiState(index);
 }
 
 class _NewsApiState extends State<NewsApi> {
+  final int urlIndex;
+
+  _NewsApiState(this.urlIndex); 
 
   Future<List<Article>> fetchArticles() async {
     var response = await http
-        .get('https://newsapi.org/v2/everything?q=tech&apiKey=$apiKey');
+        .get('https://newsapi.org/v2/everything?q=${categories[urlIndex]}&apiKey=$apiKey');
 
     if (response.statusCode == 200) {
       List articles = json.decode(response.body)["articles"];

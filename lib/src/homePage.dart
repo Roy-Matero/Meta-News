@@ -1,8 +1,8 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'categories.dart';
 import 'network/newsApi.dart';
+import 'package:connectivity/connectivity.dart';
+
 
 
 class MyHomePage extends StatefulWidget {
@@ -18,9 +18,20 @@ class _MyHomePageState extends State<MyHomePage>
   @override
   void initState() {
     super.initState();
-    _tabController = new TabController(length: 2, vsync: this, initialIndex: 0);
+    _tabController = new TabController(length: categories.length, vsync: this, initialIndex: 0);
     _scrollController =
         new ScrollController(initialScrollOffset: 0, keepScrollOffset: true);
+  }
+
+  void status() async{
+      var connectionStatus = await Connectivity().checkConnectivity();
+      if(connectionStatus == ConnectionState.active){
+        print("Is connected");
+      }
+      else {
+        print("Not connected");
+      }
+
   }
 
   @override
@@ -32,77 +43,35 @@ class _MyHomePageState extends State<MyHomePage>
         backgroundColor: Colors.transparent,
         actions: <Widget>[],
         bottom: TabBar(
+          isScrollable: true,
           controller: _tabController,
           indicatorColor: Colors.green,
-          tabs: <Widget>[
-            new Tab(
-                icon: Icon(
-              Icons.home,
-              color: Colors.green,
-            )),
-            new Tab(
-                icon: Icon(
-              Icons.more,
-              color: Colors.green,
-            )),
-          ],
+          tabs: List.generate(categories.length, (index){
+            return Category(index);
+          })
         ),
       ),
-      body: TabBarView(controller: _tabController, children: <Widget>[
-        Container(
-          decoration: BoxDecoration(
-            color: Colors.black
-              //gradient: RadialGradient(colors: [Colors.white, Colors.black]),
-              ),
-          child: ListView(
-            controller: _scrollController,
-            shrinkWrap: true,
-            scrollDirection: Axis.vertical,
-            children: <Widget>[
-              Container(
-              /*  decoration: BoxDecoration(
-                    gradient:
-                        LinearGradient(colors: [Colors.purple, Colors.blue]),
-                    borderRadius: BorderRadius.all(Radius.circular(23))), */
-                height: 50,
-                child: ListView(
-                  shrinkWrap: true,
-                  scrollDirection: Axis.horizontal,
-                  children: List.generate(categories.length, (index) {
-                    return Category(index);
-                  }),
-                ),
-              ),
-
-              SizedBox(height: 10),
-
-              Container(
-                padding: EdgeInsets.symmetric(horizontal: 15),
-                height: 400,
-                child: NewsApi(),
-              ),
-            ],
-          ),
-        ),
-        Container(
-          //child: NewsApi(),
-        ),
-      ]),
+      body: TabBarView(controller: _tabController,
+       children: List.generate(categories.length, (index){
+         return NewsApi(index);
+       }) 
+      ),
       bottomNavigationBar: BottomAppBar(
         color: Colors.black,
         child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: <Widget>[
             IconButton(
               onPressed: (){},
-              icon: Icon(Icons.home),
+              icon: Icon(Icons.home, color: Colors.blue,),
             ),
             IconButton(
               onPressed: (){},
-              icon: Icon(Icons.search),
+              icon: Icon(Icons.search, color: Colors.blue,),
             ),
             IconButton(
               onPressed: (){},
-              icon: Icon(Icons.settings),
+              icon: Icon(Icons.settings, color: Colors.blue,),
             ),
           ],
         ),

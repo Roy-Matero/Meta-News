@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 import 'src/homePage.dart';
-import 'package:connectivity/connectivity.dart';
 
 void main() {
-  var connectionStatus = Connectivity().checkConnectivity();
-  print(connectionStatus);
   runApp(MyApp());
 }
 

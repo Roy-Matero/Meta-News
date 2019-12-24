@@ -28,17 +28,17 @@ class _NewsCardState extends State<NewsCard> {
             height: 200,
             decoration: BoxDecoration(
               color: Colors.green,
-              image: DecorationImage(
+              /*image: DecorationImage(
                 image: ExactAssetImage('lib/images/image_$index.jpg'),
                 fit: BoxFit.cover,
-              ),
+              ),*/
               borderRadius: BorderRadius.all(Radius.circular(20)),
               gradient: LinearGradient(colors: [Colors.blue, Colors.purple]),
             ),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.end,
               children: <Widget>[
-                Text("This is where the feed text will appear"),
+                Text(""),
               ],
             ),
           ),
@@ -74,11 +74,11 @@ class NewsDetail extends MaterialPageRoute<Null> {
                     constraints: BoxConstraints(minWidth: double.infinity),
                     decoration: BoxDecoration(
                       color: Colors.green,
-                      image: DecorationImage(
+                      /* image: DecorationImage(
                         image: ExactAssetImage('lib/images/image_$index.jpg'),
                         fit: BoxFit.cover,
-                      ),
-                      borderRadius: BorderRadius.all(Radius.circular(15)),
+                      ), */
+                      borderRadius: BorderRadius.only(topLeft: Radius.circular(15), topRight: Radius.circular(15)),
                       gradient:
                           LinearGradient(colors: [Colors.blue, Colors.purple]),
                     ),
@@ -86,7 +86,6 @@ class NewsDetail extends MaterialPageRoute<Null> {
                   Column(
                     children: <Widget>[
                       Text("Detailed Full story appears here "),
-                      Image.asset('lib/images/image_$index.jpg'),
                     ],
                   ),
                 ],

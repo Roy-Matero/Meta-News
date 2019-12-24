@@ -1,7 +1,9 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'categories.dart';
-import 'newsCard.dart';
-import 'network/jsonFeed.dart';
+import 'network/newsApi.dart';
+
 
 class MyHomePage extends StatefulWidget {
   @override
@@ -28,12 +30,7 @@ class _MyHomePageState extends State<MyHomePage>
       appBar: AppBar(
         title: Text("Darps News"),
         backgroundColor: Colors.transparent,
-        actions: <Widget>[
-          Icon(
-            Icons.search,
-            size: 35,
-          ),
-        ],
+        actions: <Widget>[],
         bottom: TabBar(
           controller: _tabController,
           indicatorColor: Colors.green,
@@ -54,6 +51,7 @@ class _MyHomePageState extends State<MyHomePage>
       body: TabBarView(controller: _tabController, children: <Widget>[
         Container(
           decoration: BoxDecoration(
+            color: Colors.black
               //gradient: RadialGradient(colors: [Colors.white, Colors.black]),
               ),
           child: ListView(
@@ -62,10 +60,10 @@ class _MyHomePageState extends State<MyHomePage>
             scrollDirection: Axis.vertical,
             children: <Widget>[
               Container(
-                decoration: BoxDecoration(
+              /*  decoration: BoxDecoration(
                     gradient:
                         LinearGradient(colors: [Colors.purple, Colors.blue]),
-                    borderRadius: BorderRadius.all(Radius.circular(23))),
+                    borderRadius: BorderRadius.all(Radius.circular(23))), */
                 height: 50,
                 child: ListView(
                   shrinkWrap: true,
@@ -75,25 +73,40 @@ class _MyHomePageState extends State<MyHomePage>
                   }),
                 ),
               ),
+
+              SizedBox(height: 10),
+
               Container(
-                padding: EdgeInsets.symmetric(horizontal: 30),
+                padding: EdgeInsets.symmetric(horizontal: 15),
                 height: 400,
-                child: ListView(
-                  children: List.generate(6, (index) {
-                    return NewsCard(index);
-                  }),
-                ),
+                child: NewsApi(),
               ),
             ],
           ),
         ),
         Container(
-          decoration: BoxDecoration(
-            gradient: LinearGradient(colors: [Colors.green, Colors.red]),
-          ),
           //child: NewsApi(),
         ),
       ]),
+      bottomNavigationBar: BottomAppBar(
+        color: Colors.black,
+        child: Row(
+          children: <Widget>[
+            IconButton(
+              onPressed: (){},
+              icon: Icon(Icons.home),
+            ),
+            IconButton(
+              onPressed: (){},
+              icon: Icon(Icons.search),
+            ),
+            IconButton(
+              onPressed: (){},
+              icon: Icon(Icons.settings),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

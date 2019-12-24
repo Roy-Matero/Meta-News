@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'src/homePage.dart';
+import 'package:connectivity/connectivity.dart';
 
-
-void main() => runApp(MyApp());
+void main() {
+  var connectionStatus = Connectivity().checkConnectivity();
+  print(connectionStatus);
+  runApp(MyApp());
+}
 
 class MyApp extends StatelessWidget {
 

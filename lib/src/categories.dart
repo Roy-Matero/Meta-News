@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 final List<String> categories = [
   "Global",
   "Tech",
+  "Science",
   "Sports",
   "Business",
   "Politics",
@@ -21,10 +22,3 @@ class Category extends StatelessWidget {
     );
   }
 }
-
-/* ListView(
-            scrollDirection: Axis.horizontal,
-                  children: List.generate(categories.length , (index){
-                    return Category(index);
-                  })
-                ), */

@@ -1,96 +1,53 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 
-class NewsCard extends StatefulWidget {
-  final int index;
-  NewsCard(this.index);
-
-  @override
-  _NewsCardState createState() => _NewsCardState(index);
-}
-
-class _NewsCardState extends State<NewsCard> {
-  final int index;
-  _NewsCardState(this.index);
+class NewsCard extends StatelessWidget {
+  const NewsCard({Key key, this.title, this.details, this.imageToUrl})
+      : super(key: key);
+  final title;
+  final details;
+  final imageToUrl;
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        Navigator.push(context, NewsDetail(index));
-      },
-      child: Column(
-        children: <Widget>[
-          SizedBox(height: 5),
-          Container(
-            padding: EdgeInsets.only(bottom: 20),
-            constraints: BoxConstraints(minWidth: double.infinity),
-            height: 200,
-            decoration: BoxDecoration(
-              color: Colors.green,
-              /*image: DecorationImage(
-                image: ExactAssetImage('lib/images/image_$index.jpg'),
-                fit: BoxFit.cover,
-              ),*/
-              borderRadius: BorderRadius.all(Radius.circular(20)),
-              gradient: LinearGradient(colors: [Colors.blue, Colors.purple]),
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: 10),
+      color: Colors.black,
+      child: Card(
+        color: Colors.black,
+        child: Column(
+          children: <Widget>[
+            Container(
+              constraints: BoxConstraints(minHeight: 200),
+              alignment: Alignment.bottomLeft,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.vertical(top: Radius.circular(10)),
+                gradient: LinearGradient(colors: [Colors.blue, Colors.purple]),
+                image: DecorationImage(
+                  image: NetworkImage(imageToUrl),
+                  fit: BoxFit.cover,
+                ),
+              ),
+              child: Container(
+                child: Text(
+                  title,
+                ),
+                color: Colors.lightBlueAccent,
+              ),
             ),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.end,
+            SizedBox(height: 10),
+            Text(details),
+            SizedBox(height: 10),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
-                Text(""),
+                IconButton(icon: Icon(Icons.developer_board,color: Colors.blue,),onPressed: (){}),
+                IconButton(icon: Icon(Icons.more_vert,color: Colors.blue),onPressed: (){}),
               ],
             ),
-          ),
-          SizedBox(height: 10),
-        ],
+            SizedBox(height: 20),
+          ],
+        ),
       ),
     );
   }
-}
-
-class NewsDetail extends MaterialPageRoute<Null> {
-  final index;
-
-  NewsDetail(this.index)
-      : super(builder: (BuildContext context) {
-          return Scaffold(
-            appBar: AppBar(
-              title: Text("Darps News"),
-              actions: <Widget>[
-                IconButton(
-                  icon: Icon(Icons.close),
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                ),
-              ],
-            ),
-            body: Container(
-              child: ListView(
-                children: <Widget>[
-                  Container(
-                    padding: EdgeInsets.symmetric(vertical: 200),
-                    constraints: BoxConstraints(minWidth: double.infinity),
-                    decoration: BoxDecoration(
-                      color: Colors.green,
-                      /* image: DecorationImage(
-                        image: ExactAssetImage('lib/images/image_$index.jpg'),
-                        fit: BoxFit.cover,
-                      ), */
-                      borderRadius: BorderRadius.only(topLeft: Radius.circular(15), topRight: Radius.circular(15)),
-                      gradient:
-                          LinearGradient(colors: [Colors.blue, Colors.purple]),
-                    ),
-                  ),
-                  Column(
-                    children: <Widget>[
-                      Text("Detailed Full story appears here "),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-          );
-        });
 }

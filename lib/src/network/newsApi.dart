@@ -1,9 +1,11 @@
 import 'package:darps_news/src/categories.dart';
+import 'package:darps_news/src/newsCard.dart';
+import 'package:darps_news/src/newsDetail.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'package:connectivity/connectivity.dart';
+
 
 final apiKey = "3e098666ac9b4a6c85b716074a9f0475";
 
@@ -66,6 +68,7 @@ class _NewsApiState extends State<NewsApi> {
     }
   }
 
+
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
@@ -73,48 +76,22 @@ class _NewsApiState extends State<NewsApi> {
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         if (snapshot.hasData) {
           List<Article> articles = snapshot.data;
-          return ListView(
-            padding: EdgeInsets.symmetric(horizontal: 3),
-            children: articles
-                .map((article) => GestureDetector(
-                      onTap: () {},
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: Colors.black,
-                        ),
-                        child: Column(
-                          children: <Widget>[
-                            Container(
-                              constraints: BoxConstraints.expand(height: 200),
-                              decoration: BoxDecoration(
-                                gradient: LinearGradient(
-                                    colors: [Colors.blue, Colors.purple]),
-                                color: Colors.grey,
-                                borderRadius: BorderRadius.only(
-                                    topLeft: Radius.circular(15),
-                                    topRight: Radius.circular(15)),
-                                image: DecorationImage(
-                                  image: NetworkImage(article.urlToImage),
-                                  fit: BoxFit.cover,
-                                ),
-                              ),
-                              //alignment: ,
-                              //constraints: BoxConstraints.expand(),
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.end,
-                                children: <Widget>[
-                                  Text(article.title),
-                                ],
-                              ),
-                            ),
-                            SizedBox(height: 15),
-                            Text(article.description),
-                            SizedBox(height: 15),
-                          ],
-                        ),
-                      ),
-                    ))
-                .toList(),
+          List articleList = articles.map((article) 
+          => NewsCard(title: article.title, details: article.description, imageToUrl: article.urlToImage,)).toList();
+
+          var articleDetail = articles.map((article) 
+          => NewsDetails(title: article.title, content: article.content, imageToUrl: article.urlToImage,)).toList();
+          return ListView.builder(
+            itemCount: articleList.length,
+            itemBuilder: (context,int index) {
+              return GestureDetector(
+                onTap: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context ) => articleDetail[index])
+                  ),
+                child: articleList[index],
+              );
+            },
           );
         } else {
           return Container(

@@ -1,6 +1,10 @@
+import 'package:darps_news/src/morePage.dart';
+import 'package:darps_news/src/searchPage.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'categories.dart';
 import 'network/newsApi.dart';
+//import 'newsCard.dart';
 import 'package:connectivity/connectivity.dart';
 
 
@@ -19,19 +23,24 @@ class _MyHomePageState extends State<MyHomePage>
   void initState() {
     super.initState();
     _tabController = new TabController(length: categories.length, vsync: this, initialIndex: 0);
-    _scrollController =
-        new ScrollController(initialScrollOffset: 0, keepScrollOffset: true);
   }
 
   void status() async{
-      var connectionStatus = await Connectivity().checkConnectivity();
-      if(connectionStatus == ConnectionState.active){
-        print("Is connected");
+      var connectionResult = await Connectivity().checkConnectivity();
+      if(connectionResult == ConnectivityResult.mobile){
+        CupertinoAlertDialog(actions: <Widget>[Text("You are connected to the internet")],);
       }
       else {
-        print("Not connected");
+        CupertinoAlertDialog(actions: <Widget>[Text("You are not connected to the internet")],);
       }
-
+  }
+  var pages = [MyHomePage(), Search(), More()];
+  var _selectedIndex = 0;
+  void _itemTapped(int index){
+    setState(() {
+      _selectedIndex = index;
+      Navigator.push(context, MaterialPageRoute(builder: (context) => pages[index]));
+    });
   }
 
   @override
@@ -56,25 +65,23 @@ class _MyHomePageState extends State<MyHomePage>
          return NewsApi(index);
        }) 
       ),
-      bottomNavigationBar: BottomAppBar(
-        color: Colors.black,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: <Widget>[
-            IconButton(
-              onPressed: (){},
-              icon: Icon(Icons.home, color: Colors.blue,),
-            ),
-            IconButton(
-              onPressed: (){},
-              icon: Icon(Icons.search, color: Colors.blue,),
-            ),
-            IconButton(
-              onPressed: (){},
-              icon: Icon(Icons.settings, color: Colors.blue,),
-            ),
-          ],
-        ),
+      bottomNavigationBar: BottomNavigationBar(
+        items: <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            title: Text("Home"),
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.search),
+            title: Text("Search"),
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.more),
+            title: Text("More"),
+          ),
+        ],
+        currentIndex: _selectedIndex,
+        //onTap: _itemTapped(_selectedIndex),
       ),
     );
   }

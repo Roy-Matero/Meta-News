@@ -17,7 +17,7 @@ class NewsCard extends StatelessWidget {
         child: Column(
           children: <Widget>[
             Container(
-              constraints: BoxConstraints(minHeight: 200),
+              constraints: BoxConstraints(minHeight: 150),
               alignment: Alignment.bottomLeft,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.vertical(top: Radius.circular(10)),
@@ -27,24 +27,38 @@ class NewsCard extends StatelessWidget {
                   fit: BoxFit.cover,
                 ),
               ),
-              child: Container(
-                child: Text(
-                  title,
-                ),
-                color: Colors.lightBlueAccent,
+            ),
+            Container(
+              padding: EdgeInsets.symmetric(horizontal: 15),
+              child: Column(
+                children: <Widget>[
+                  SizedBox(height: 10),
+                  Text(
+                    title,
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  SizedBox(height: 10),
+                  Text(
+                    details,
+                    style: TextStyle(
+                      fontSize: 12,
+                    ),
+                  ),
+                  SizedBox(height: 10),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      IconButton(icon: Icon(Icons.developer_board,color: Colors.blue,),onPressed: (){}),
+                      IconButton(icon: Icon(Icons.more_vert,color: Colors.blue),onPressed: (){}),
+                    ],
+                  ),
+                  SizedBox(height: 10),
+                ],
               ),
             ),
-            SizedBox(height: 10),
-            Text(details),
-            SizedBox(height: 10),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                IconButton(icon: Icon(Icons.developer_board,color: Colors.blue,),onPressed: (){}),
-                IconButton(icon: Icon(Icons.more_vert,color: Colors.blue),onPressed: (){}),
-              ],
-            ),
-            SizedBox(height: 20),
           ],
         ),
       ),

@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class NewsDetails extends StatelessWidget {
-  const NewsDetails({Key key, this.title, this.content, this.imageToUrl})
+  const NewsDetails({Key key, this.title, this.content, this.imageToUrl, this.url})
       : super(key: key);
   final title;
   final content;
   final imageToUrl;
+  final url;
 
   @override
   Widget build(BuildContext context) {
@@ -62,10 +64,11 @@ class NewsDetails extends StatelessWidget {
                       children: <Widget>[
                         IconButton(
                             icon: Icon(
-                              Icons.developer_board,
+                              Icons.open_in_new,
                               color: Colors.blue,
                             ),
-                            onPressed: () {}),
+                            onPressed: () => launch(url),
+                        ),
                         IconButton(
                             icon: Icon(Icons.more_vert, color: Colors.blue),
                             onPressed: () {}),

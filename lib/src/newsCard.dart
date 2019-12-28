@@ -1,11 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class NewsCard extends StatelessWidget {
-  const NewsCard({Key key, this.title, this.details, this.imageToUrl})
+  const NewsCard(
+      {Key key,
+      this.title,
+      this.details,
+      this.imageToUrl,
+      this.source,
+      this.author, 
+      this.url})
       : super(key: key);
   final title;
   final details;
   final imageToUrl;
+  final author;
+  final Map source;
+  final url;
 
   @override
   Widget build(BuildContext context) {
@@ -43,16 +54,37 @@ class NewsCard extends StatelessWidget {
                   SizedBox(height: 10),
                   Text(
                     details,
-                    style: TextStyle(
-                      fontSize: 12,
-                    ),
+                    style: TextStyle(fontSize: 12, color: Colors.white70),
                   ),
                   SizedBox(height: 10),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
-                      IconButton(icon: Icon(Icons.developer_board,color: Colors.blue,),onPressed: (){}),
-                      IconButton(icon: Icon(Icons.more_vert,color: Colors.blue),onPressed: (){}),
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: <Widget>[
+                          Text(
+                            source["name"] != null ? source["name"] : "Unknown",
+                            style: TextStyle(fontSize: 16),
+                          ),
+                          Text(
+                            author != null && author.length < 50 ? author : "",
+                            style: TextStyle(
+                              fontSize: 10,
+                            ),
+                          ),
+                        ],
+                      ),
+                      IconButton(
+                          icon: Icon(
+                            Icons.open_in_new,
+                            color: Colors.blue,
+                          ),
+                          onPressed: () {}),
+                      IconButton(
+                          icon: Icon(Icons.more_vert, color: Colors.blue),
+                          onPressed: () => launch(url),
+                          ),
                     ],
                   ),
                   SizedBox(height: 10),

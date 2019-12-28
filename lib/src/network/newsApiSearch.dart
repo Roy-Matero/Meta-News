@@ -42,17 +42,18 @@ class Article {
   }
 }
 
-class NewsApi extends StatefulWidget {
-  final int index;
-  NewsApi(this.index, {Key key}) : super(key: key);
+class NewsApiSearch extends StatefulWidget {
+  final searchText;
+  NewsApiSearch(this.searchText, {Key key}) : super(key: key);
 
-  _NewsApiState createState() => _NewsApiState(index);
+  _NewsApiSearchState createState() => _NewsApiSearchState(searchText);
 }
 
-class _NewsApiState extends State<NewsApi> {
-  _NewsApiState(this.urlIndex);
+class _NewsApiSearchState extends State<NewsApiSearch> {
+  _NewsApiSearchState(this.searchText);
+  final searchText;
   var list_articles;
-  final int urlIndex;
+
   var refreshKey = GlobalKey<RefreshIndicatorState>();
   @override
   void initState() {
@@ -69,7 +70,7 @@ class _NewsApiState extends State<NewsApi> {
 
   Future<List<Article>> fetchArticles() async {
     var response = await http.get(
-        'https://newsapi.org/v2/everything?q=${categories[urlIndex]}&apiKey=$apiKey');
+        'https://newsapi.org/v2/everything?q=$searchText&apiKey=$apiKey');
 
     if (response.statusCode == 200) {
       List articles = json.decode(response.body)["articles"];
@@ -97,7 +98,6 @@ class _NewsApiState extends State<NewsApi> {
                       imageToUrl: article.urlToImage,
                       source: article.source,
                       author: article.author,
-                      url: article.url,
                     ))
                 .toList();
 

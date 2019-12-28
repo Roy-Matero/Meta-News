@@ -1,13 +1,11 @@
-import 'package:darps_news/src/morePage.dart';
 import 'package:darps_news/src/searchPage.dart';
-import 'package:darps_news/src/tabView.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'categories.dart';
-import 'network/newsApi.dart';
-//import 'newsCard.dart';
-import 'package:connectivity/connectivity.dart';
+import 'package:firebase_admob/firebase_admob.dart';
 
+import 'package:darps_news/src/morePage.dart';
+import 'package:darps_news/src/tabView.dart';
+import 'categories.dart';
 
 class MyHomePage extends StatefulWidget {
   @override
@@ -16,25 +14,45 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage>
     with SingleTickerProviderStateMixin {
-
   @override
   void initState() {
     super.initState();
-    tabController = new TabController(length: categories.length, vsync: this, initialIndex: 0);
+    tabController = new TabController(
+        length: categories.length, vsync: this, initialIndex: 0);
   }
 
-  void status() async{
-      var connectionResult = await Connectivity().checkConnectivity();
-      if(connectionResult == ConnectivityResult.wifi){
-        CupertinoAlertDialog(actions: <Widget>[Text("You are connected to the internet")],);
-      }
-      else {
-        CupertinoAlertDialog(actions: <Widget>[Text("You are not connected to the internet")],);
-      }
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        backgroundColor: Colors.black,
+        appBar: TabBar(
+              indicatorSize: TabBarIndicatorSize.label,
+              isScrollable: true,
+              controller: tabController,
+              indicatorColor: Colors.green,
+              labelColor: Colors.purple,
+              unselectedLabelColor: Colors.green,
+              labelStyle: TextStyle(fontSize: 18),
+              unselectedLabelStyle: TextStyle(fontSize: 12),
+              tabs: List.generate(categories.length, (index) {
+                return Category(index);
+              })),
+        body: TabView());
   }
-  var navigationPages = [TabView(), Search(), More()];
+}
+
+class HomeNavigation extends StatefulWidget {
+  HomeNavigation({Key key}) : super(key: key);
+
+  @override
+  _NavigationState createState() => _NavigationState();
+}
+
+class _NavigationState extends State<HomeNavigation> {
+  final List<Widget> navigationPages = [MyHomePage(), Search(), More()];
   var _selectedIndex = 0;
-  void _itemTapped(int index){
+
+  void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
     });
@@ -45,27 +63,19 @@ class _MyHomePageState extends State<MyHomePage>
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: AppBar(
-        leading: CircleAvatar(child: Image(image: ExactAssetImage("assets/image/darpsIcon.png"),)),
-        title: Text("Darps News", style: TextStyle(color: Colors.red)),
+        //leading: Image.asset("lib/assets/images/darpsIcon.png"),
+        title: Text("Darps News", style: TextStyle(color: Colors.white)),
+        centerTitle: false,
         backgroundColor: Colors.transparent,
         actions: <Widget>[],
-        bottom: TabBar(
-          indicatorSize: TabBarIndicatorSize.label,
-          isScrollable: true,
-          controller: tabController,
-          indicatorColor: Colors.green,
-          labelColor: Colors.blue,
-          unselectedLabelColor: Colors.green,
-          labelStyle: TextStyle(fontSize: 18),
-          unselectedLabelStyle: TextStyle(fontSize: 12),
-          tabs: List.generate(categories.length, (index){
-            return Category(index);
-          })
-        ),
+        primary: true,
       ),
       body: navigationPages[_selectedIndex],
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: Colors.black,
+        selectedFontSize: 15,
+        selectedItemColor: Colors.purple,
+        unselectedItemColor: Colors.teal,
         items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
@@ -81,8 +91,16 @@ class _MyHomePageState extends State<MyHomePage>
           ),
         ],
         currentIndex: _selectedIndex,
-        onTap:(context) => _itemTapped(_selectedIndex),
+        onTap: _onItemTapped,
       ),
     );
   }
 }
+
+/*
+class Admob {
+  final String appId = "ca-app-pub-6964159613326022~6385164891";
+  FirebaseAdMob.instance.initialize(appId: appId);
+}
+
+*/

@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 
 final List<String> categories = [
   "Global",
-  "Tech",
+  "Technology",
   "Science",
   "Sports",
   "Business",
   "Politics",
   "Art",
-  "Education",
+  "Health",
 ];
 
 class Category extends StatelessWidget {

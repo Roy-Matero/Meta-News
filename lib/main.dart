@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
         brightness: Brightness.dark,
         primarySwatch: Colors.grey,
       ),
-      home: MyHomePage(),
+      home: HomeNavigation(),
     );
   }
 }

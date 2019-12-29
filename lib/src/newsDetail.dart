@@ -60,7 +60,9 @@ class NewsDetails extends StatelessWidget {
                   gradient:
                       LinearGradient(colors: [Colors.blue, Colors.purple]),
                   image: DecorationImage(
-                    image: NetworkImage(imageToUrl),
+                    image: NetworkImage(
+                      imageToUrl ?? "https://pulmanseat.co.uk/img/motability/no-image-found.png",
+                    ),
                     fit: BoxFit.cover,
                   ),
                 ),

@@ -49,6 +49,10 @@ class NewsCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var timeDiffDays = DateTime.now().difference(DateTime.parse(publishTime)).inDays.toInt();
+    var timeDiffHours = DateTime.now().difference(DateTime.parse(publishTime)).inHours.toInt();
+    var timeDiffMinutes = DateTime.now().difference(DateTime.parse(publishTime)).inMinutes.toInt();
+
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 10),
       color: Colors.black,
@@ -63,7 +67,9 @@ class NewsCard extends StatelessWidget {
                 borderRadius: BorderRadius.vertical(top: Radius.circular(10)),
                 gradient: LinearGradient(colors: [Colors.blue, Colors.purple]),
                 image: DecorationImage(
-                  image: NetworkImage(imageToUrl),
+                  image: NetworkImage(
+                    imageToUrl ?? "https://pulmanseat.co.uk/img/motability/no-image-found.png",
+                  ),
                   fit: BoxFit.cover,
                 ),
               ),
@@ -104,13 +110,25 @@ class NewsCard extends StatelessWidget {
                           ),
                         ],
                       ),
-                      //Text(DateTime.now().difference(DateTime.parse(publishTime)).toString()),
+
+                      Text(
+                        timeDiffDays != 0 ? "$timeDiffDays Days ago" 
+                        : "$timeDiffHours Hours ago",
+                        style: TextStyle(fontSize: 10.0, color: Colors.greenAccent),
+                      ),
                       IconButton(
                           icon: Icon(
                             Icons.open_in_new,
                             color: Colors.blue,
                           ),
-                          onPressed: () => launch(url)),
+                          onPressed: () {
+                            if(url != null){
+                               return launch(url);
+                            }
+                            else{
+                              return () {};
+                            }
+                          }),
                       IconButton(
                           icon: Icon(Icons.more_vert, color: Colors.blue),
                           onPressed: showInterstitialAd,

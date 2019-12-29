@@ -8,7 +8,9 @@ import 'dart:async';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
-final apiKey = "3e098666ac9b4a6c85b716074a9f0475";
+
+final apiKey = "3e098666ac9b4a6c85b716074a9f0475"; 
+var queryText = "top-headlines";
 
 class Article {
   final Map source;
@@ -62,6 +64,12 @@ class _NewsApiState extends State<NewsApi> {
   }
 
   Future<Null> refresListArticle() async {
+    var counter = 1;
+    counter % 2 == 0 
+    ? queryText = "top-headlines"
+    : queryText = "everything";
+    counter += 1;
+    
     refreshKey.currentState?.show(atTop: true);
 
     setState(() {
@@ -71,7 +79,8 @@ class _NewsApiState extends State<NewsApi> {
 
   Future<List<Article>> fetchArticles() async {
     var response = await http.get(
-        'https://newsapi.org/v2/everything?q=${categories[urlIndex]}&apiKey=$apiKey');
+        "https://newsapi.org/v2/$queryText?q=${categories[urlIndex]}&sortBy=time&apiKey=$apiKey");
+
 
     if (response.statusCode == 200) {
       List articles = json.decode(response.body)["articles"];
@@ -124,8 +133,9 @@ class _NewsApiState extends State<NewsApi> {
                       source: article.source,
                       author: article.author,
                       url: article.url,
+                      publishTime: article.publishedAt,
                     ))
-                .toList();
+                .toList(); 
 
             var articleDetail = articles
                 .map((article) => NewsDetails(

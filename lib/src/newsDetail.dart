@@ -19,7 +19,7 @@ class NewsDetails extends StatelessWidget {
       backgroundColor: Colors.black,
       appBar: AppBar(
         backgroundColor: Colors.black,
-        title: Text("Darps News", style: TextStyle(color: Colors.red)),
+        title: Text("Meta News", style: TextStyle(color: Colors.red)),
       ),
       body: Container(
         padding: EdgeInsets.symmetric(horizontal: 10),
@@ -93,7 +93,7 @@ class NewsDetails extends StatelessWidget {
 MobileAdTargetingInfo targetingInfo = MobileAdTargetingInfo(
 keywords: <String>['flutterio', 'beautiful apps'],
 contentUrl: 'https://flutter.io',
-birthday: DateTime.now(),
+birthday: DateTime.now().add(Duration(seconds: 5)),
 childDirected: false,
 designedForFamilies: false,
 gender: MobileAdGender.unknown, 

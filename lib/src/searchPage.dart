@@ -1,4 +1,4 @@
-import 'package:darps_news/src/network/newsApiSearch.dart';
+import 'network/newsApiSearch.dart';
 import 'package:firebase_admob/firebase_admob.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';

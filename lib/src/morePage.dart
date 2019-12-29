@@ -31,7 +31,16 @@ class _MoreState extends State<More> {
           SizedBox(width: 10),
           Text("This app was created by : Roy Matero"),
           Text("Email: roymatero@gmail.com"),
-          Text("twitter: @RoyMatero"),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Text("twitter:"),
+              MaterialButton(
+            child: Text("@RoyMatero", style: TextStyle(color: Colors.blue),),
+            onPressed: () => launch('https://twitter.com/RoyMatero'),
+          ),
+            ],
+          ),
           SizedBox(width: 50),
         ],
       ),
@@ -49,7 +58,6 @@ class _MoreState extends State<More> {
         children: <Widget>[
           Text("Powered by"),
           MaterialButton(
-            //color: Colors.transparent,
             child: Text("News API", style: TextStyle(color: Colors.blue),),
             onPressed: () => launch('https://newsapi.org/'),
           ),
@@ -57,6 +65,23 @@ class _MoreState extends State<More> {
         ],
       ),
     ),
+
+    More(
+      header: Row(
+        children: <Widget>[
+          Icon(Icons.question_answer),
+          SizedBox(width: 30,),
+          Text("FAQ"),
+        ],
+      ), 
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: <Widget>[
+          Text(""),
+        ],
+      ),
+      ),
   ];
 
   @override

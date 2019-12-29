@@ -11,7 +11,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Darps',
+      title: 'Meta News',
       theme: ThemeData(
         brightness: Brightness.dark,
         primarySwatch: Colors.grey,

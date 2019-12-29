@@ -1,6 +1,6 @@
-import 'package:darps_news/src/categories.dart';
-import 'package:darps_news/src/newsCard.dart';
-import 'package:darps_news/src/newsDetail.dart';
+import '../categories.dart';
+import '../newsCard.dart';
+import '../newsDetail.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
 import 'dart:convert';

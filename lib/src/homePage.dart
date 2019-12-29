@@ -1,10 +1,10 @@
-import 'package:darps_news/src/searchPage.dart';
+import 'searchPage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_admob/firebase_admob.dart';
 
-import 'package:darps_news/src/morePage.dart';
-import 'package:darps_news/src/tabView.dart';
+import 'morePage.dart';
+import 'tabView.dart';
 import 'categories.dart';
 
 class MyHomePage extends StatefulWidget {
@@ -20,6 +20,7 @@ class _MyHomePageState extends State<MyHomePage>
     tabController = TabController(
         length: categories.length, vsync: this, initialIndex: 0);
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -61,13 +62,19 @@ class _NavigationState extends State<HomeNavigation> {
 
   @override
   Widget build(BuildContext context) {
+
     FirebaseAdMob.instance.initialize(appId: "ca-app-pub-6964159613326022~6385164891").then((response){
       homePageBanner..load()..show(anchorType: AnchorType.top, anchorOffset: 120.0);
-    }); 
+    });
+
+    FirebaseAdMob.instance.initialize(appId: "ca-app-pub-6964159613326022~6385164891").then((response){
+      homePageInterstitial..load()..show();
+    });
+    
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: AppBar(
-        title: Text("Darps News", style: TextStyle(color: Colors.white)),
+        title: Text("Meta News", style: TextStyle(color: Colors.white)),
         centerTitle: false,
         backgroundColor: Colors.transparent,
         actions: <Widget>[],
@@ -102,21 +109,38 @@ class _NavigationState extends State<HomeNavigation> {
 
 
 MobileAdTargetingInfo targetingInfo = MobileAdTargetingInfo(
-keywords: <String>['flutterio', 'beautiful apps'],
-contentUrl: 'https://flutter.io',
-birthday: DateTime.now(),
-childDirected: false,
-designedForFamilies: false,
-gender: MobileAdGender.unknown, // or MobileAdGender.female, MobileAdGender.unknown
-testDevices: <String>["7C61AB7F2B5F7A21A060B681001F85E9"], // Android emulators are considered test devices
-);
+      keywords: <String>['flutterio', 'beautiful apps'],
+      contentUrl: 'https://flutter.io',
+      birthday: DateTime.now().add(Duration(seconds: 15)),
+      childDirected: false,
+      designedForFamilies: false,
+      gender: MobileAdGender.unknown, // or MobileAdGender.female, MobileAdGender.unknown
+      testDevices: <String>["7C61AB7F2B5F7A21A060B681001F85E9"], // Android emulators are considered test devices
+      );
 
-BannerAd homePageBanner = BannerAd(
-adUnitId: "ca-app-pub-6964159613326022/4573938519",
-size: AdSize.smartBanner,
-targetingInfo: targetingInfo,
-listener: (MobileAdEvent event) {
-  //print("BannerAd event is $event");
-},
-);
+    BannerAd homePageBanner = BannerAd(
+      adUnitId: "ca-app-pub-6964159613326022/4573938519",
+      size: AdSize.smartBanner,
+      targetingInfo: targetingInfo,
+      listener: (MobileAdEvent event) {
+        //print("BannerAd event is $event");
+      },
+      );
 
+  MobileAdTargetingInfo interstitialTargetingInfo = MobileAdTargetingInfo(
+      keywords: <String>['flutterio', 'beautiful apps'],
+      contentUrl: 'https://flutter.io',
+      birthday: DateTime.now().add(Duration(seconds: 30)),
+      childDirected: false,
+      designedForFamilies: false,
+      gender: MobileAdGender.unknown, // or MobileAdGender.female, MobileAdGender.unknown
+      testDevices: <String>["7C61AB7F2B5F7A21A060B681001F85E9"], // Android emulators are considered test devices
+      );
+
+    InterstitialAd homePageInterstitial = InterstitialAd(
+  adUnitId: "ca-app-pub-6964159613326022/5946498427",
+  targetingInfo: interstitialTargetingInfo,
+  listener: (MobileAdEvent event) {
+    //print("InterstitialAd event is $event");
+  },
+);

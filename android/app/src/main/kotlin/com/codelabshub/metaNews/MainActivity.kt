@@ -1,4 +1,4 @@
-package com.codelabshub.darps_news
+package com.codelabshub.metaNews
 
 import androidx.annotation.NonNull;
 import io.flutter.embedding.android.FlutterActivity

@@ -60,16 +60,18 @@ class _NavigationState extends State<HomeNavigation> {
     });
   }
 
+
   @override
   Widget build(BuildContext context) {
 
     FirebaseAdMob.instance.initialize(appId: "ca-app-pub-6964159613326022~6385164891").then((response){
-      homePageBanner..load()..show(anchorType: AnchorType.top, anchorOffset: 120.0);
+      homePageBanner..load()..show(
+        horizontalCenterOffset: 120,
+        anchorType: AnchorType.top, anchorOffset: 30.0
+        );
     });
 
-    FirebaseAdMob.instance.initialize(appId: "ca-app-pub-6964159613326022~6385164891").then((response){
-      homePageInterstitial..load()..show();
-    });
+
     
     return Scaffold(
       backgroundColor: Colors.black,
@@ -111,7 +113,7 @@ class _NavigationState extends State<HomeNavigation> {
 MobileAdTargetingInfo targetingInfo = MobileAdTargetingInfo(
       keywords: <String>['flutterio', 'beautiful apps'],
       contentUrl: 'https://flutter.io',
-      birthday: DateTime.now().add(Duration(seconds: 15)),
+      birthday: DateTime.now().add(Duration(seconds: 10)),
       childDirected: false,
       designedForFamilies: false,
       gender: MobileAdGender.unknown, // or MobileAdGender.female, MobileAdGender.unknown
@@ -127,20 +129,3 @@ MobileAdTargetingInfo targetingInfo = MobileAdTargetingInfo(
       },
       );
 
-  MobileAdTargetingInfo interstitialTargetingInfo = MobileAdTargetingInfo(
-      keywords: <String>['flutterio', 'beautiful apps'],
-      contentUrl: 'https://flutter.io',
-      birthday: DateTime.now().add(Duration(seconds: 30)),
-      childDirected: false,
-      designedForFamilies: false,
-      gender: MobileAdGender.unknown, // or MobileAdGender.female, MobileAdGender.unknown
-      testDevices: <String>["7C61AB7F2B5F7A21A060B681001F85E9"], // Android emulators are considered test devices
-      );
-
-    InterstitialAd homePageInterstitial = InterstitialAd(
-  adUnitId: "ca-app-pub-6964159613326022/5946498427",
-  targetingInfo: interstitialTargetingInfo,
-  listener: (MobileAdEvent event) {
-    //print("InterstitialAd event is $event");
-  },
-);

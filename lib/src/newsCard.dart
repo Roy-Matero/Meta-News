@@ -3,14 +3,16 @@ import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class NewsCard extends StatelessWidget {
-  const NewsCard(
+   NewsCard(
       {Key key,
       this.title,
       this.details,
       this.imageToUrl,
       this.source,
       this.author, 
-      this.url})
+      this.url,
+        this.publishTime,
+      })
       : super(key: key);
   final title;
   final details;
@@ -18,6 +20,32 @@ class NewsCard extends StatelessWidget {
   final author;
   final Map source;
   final url;
+  final publishTime;
+
+
+  void showInterstitialAd(){
+    MobileAdTargetingInfo interstitialTargetingInfo = MobileAdTargetingInfo(
+      keywords: <String>['flutterio', 'beautiful apps'],
+      contentUrl: 'https://flutter.io',
+      birthday: DateTime.now().add(Duration(minutes: 2)),
+      childDirected: false,
+      designedForFamilies: false,
+      gender: MobileAdGender.unknown, // or MobileAdGender.female, MobileAdGender.unknown
+      testDevices: <String>["7C61AB7F2B5F7A21A060B681001F85E9"], // Android emulators are considered test devices
+    );
+
+    InterstitialAd homePageInterstitial = InterstitialAd(
+      adUnitId: "ca-app-pub-6964159613326022/5946498427",
+      targetingInfo: interstitialTargetingInfo,
+      listener: (MobileAdEvent event) {
+        //print("InterstitialAd event is $event");
+      },
+    );
+
+    FirebaseAdMob.instance.initialize(appId: "ca-app-pub-6964159613326022~6385164891").then((response){
+      homePageInterstitial..load()..show();
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -76,15 +104,16 @@ class NewsCard extends StatelessWidget {
                           ),
                         ],
                       ),
+                      //Text(DateTime.now().difference(DateTime.parse(publishTime)).toString()),
                       IconButton(
                           icon: Icon(
                             Icons.open_in_new,
                             color: Colors.blue,
                           ),
-                          onPressed: () {}),
+                          onPressed: () => launch(url)),
                       IconButton(
                           icon: Icon(Icons.more_vert, color: Colors.blue),
-                          onPressed: () => launch(url),
+                          onPressed: showInterstitialAd,
                           ),
                     ],
                   ),

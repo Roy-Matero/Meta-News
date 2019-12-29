@@ -1,3 +1,5 @@
+import 'package:firebase_admob/firebase_admob.dart';
+
 import '../categories.dart';
 import '../newsCard.dart';
 import '../newsDetail.dart';
@@ -80,6 +82,30 @@ class _NewsApiState extends State<NewsApi> {
     }
   }
 
+  void showInterstitialAd(){
+    MobileAdTargetingInfo interstitialTargetingInfo = MobileAdTargetingInfo(
+      keywords: <String>['flutterio', 'beautiful apps'],
+      contentUrl: 'https://flutter.io',
+      birthday: DateTime.now().add(Duration(minutes: 2)),
+      childDirected: false,
+      designedForFamilies: false,
+      gender: MobileAdGender.unknown, // or MobileAdGender.female, MobileAdGender.unknown
+      testDevices: <String>["7C61AB7F2B5F7A21A060B681001F85E9"], // Android emulators are considered test devices
+    );
+
+    InterstitialAd homePageInterstitial = InterstitialAd(
+      adUnitId: "ca-app-pub-6964159613326022/8258280072",
+      targetingInfo: interstitialTargetingInfo,
+      listener: (MobileAdEvent event) {
+        //print("InterstitialAd event is $event");
+      },
+    );
+
+    FirebaseAdMob.instance.initialize(appId: "ca-app-pub-6964159613326022~6385164891").then((response){
+      homePageInterstitial..load()..show();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return RefreshIndicator(
@@ -113,6 +139,8 @@ class _NewsApiState extends State<NewsApi> {
               itemCount: articleList.length,
               itemBuilder: (context, int index) {
                 return GestureDetector(
+                  onLongPressUp: showInterstitialAd,
+                  onLongPress: showInterstitialAd,
                   onTap: () => Navigator.push(
                       context,
                       MaterialPageRoute(

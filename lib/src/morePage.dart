@@ -124,7 +124,7 @@ class _MoreState extends State<More> {
 MobileAdTargetingInfo targetingInfo = MobileAdTargetingInfo(
 keywords: <String>['flutterio', 'beautiful apps'],
 contentUrl: 'https://flutter.io',
-birthday: DateTime.now(),
+birthday: DateTime.now().add(Duration(seconds: 15)),
 childDirected: false,
 designedForFamilies: false,
 gender: MobileAdGender.unknown, 

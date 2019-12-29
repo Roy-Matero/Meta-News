@@ -17,7 +17,7 @@ class _MyHomePageState extends State<MyHomePage>
   @override
   void initState() {
     super.initState();
-    tabController = new TabController(
+    tabController = TabController(
         length: categories.length, vsync: this, initialIndex: 0);
   }
 
@@ -26,11 +26,11 @@ class _MyHomePageState extends State<MyHomePage>
     return Scaffold(
         backgroundColor: Colors.black,
         appBar: TabBar(
-              indicatorSize: TabBarIndicatorSize.label,
+              indicatorSize: TabBarIndicatorSize.tab,
               isScrollable: true,
               controller: tabController,
               indicatorColor: Colors.green,
-              labelColor: Colors.purple,
+              labelColor: Colors.blue,
               unselectedLabelColor: Colors.green,
               labelStyle: TextStyle(fontSize: 18),
               unselectedLabelStyle: TextStyle(fontSize: 12),
@@ -50,6 +50,7 @@ class HomeNavigation extends StatefulWidget {
 
 class _NavigationState extends State<HomeNavigation> {
   final List<Widget> navigationPages = [MyHomePage(), Search(), More()];
+  
   var _selectedIndex = 0;
 
   void _onItemTapped(int index) {
@@ -60,10 +61,12 @@ class _NavigationState extends State<HomeNavigation> {
 
   @override
   Widget build(BuildContext context) {
+    FirebaseAdMob.instance.initialize(appId: "ca-app-pub-6964159613326022~6385164891").then((response){
+      homePageBanner..load()..show(anchorType: AnchorType.top, anchorOffset: 120.0);
+    }); 
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: AppBar(
-        //leading: Image.asset("lib/assets/images/darpsIcon.png"),
         title: Text("Darps News", style: TextStyle(color: Colors.white)),
         centerTitle: false,
         backgroundColor: Colors.transparent,
@@ -97,10 +100,23 @@ class _NavigationState extends State<HomeNavigation> {
   }
 }
 
-/*
-class Admob {
-  final String appId = "ca-app-pub-6964159613326022~6385164891";
-  FirebaseAdMob.instance.initialize(appId: appId);
-}
 
-*/
+MobileAdTargetingInfo targetingInfo = MobileAdTargetingInfo(
+keywords: <String>['flutterio', 'beautiful apps'],
+contentUrl: 'https://flutter.io',
+birthday: DateTime.now(),
+childDirected: false,
+designedForFamilies: false,
+gender: MobileAdGender.unknown, // or MobileAdGender.female, MobileAdGender.unknown
+testDevices: <String>["7C61AB7F2B5F7A21A060B681001F85E9"], // Android emulators are considered test devices
+);
+
+BannerAd homePageBanner = BannerAd(
+adUnitId: "ca-app-pub-6964159613326022/4573938519",
+size: AdSize.smartBanner,
+targetingInfo: targetingInfo,
+listener: (MobileAdEvent event) {
+  //print("BannerAd event is $event");
+},
+);
+

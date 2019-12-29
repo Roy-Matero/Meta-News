@@ -106,6 +106,7 @@ class _NewsApiState extends State<NewsApi> {
                       title: article.title,
                       content: article.content,
                       imageToUrl: article.urlToImage,
+                      url: article.url
                     ))
                 .toList();
             return ListView.builder(

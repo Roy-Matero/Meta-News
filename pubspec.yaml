@@ -27,10 +27,22 @@ dependencies:
   connectivity: ^0.4.6+1
   firebase_admob: ^0.9.0+10
   url_launcher: ^5.4.1
+  flutter_launcher_icons: ^0.7.4
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  flutter_launcher_icons: "^0.7.3"
+
+#flutter_icons:
+#  image_path: "lib/assets/images/darpsIcon.png" 
+#  android: true
+#  ios: true
+
+flutter_icons:
+  android: "launcher_icon" 
+  ios: true
+  image_path: "lib/assets/images/darpsIcon.png"
 
 
 

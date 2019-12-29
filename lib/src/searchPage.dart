@@ -1,8 +1,28 @@
 import 'package:darps_news/src/network/newsApiSearch.dart';
+import 'package:firebase_admob/firebase_admob.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:english_words/english_words.dart' as words;
 
+
+MobileAdTargetingInfo targetingInfo = MobileAdTargetingInfo(
+keywords: <String>['flutterio', 'beautiful apps'],
+contentUrl: 'https://flutter.io',
+birthday: DateTime.now(),
+childDirected: false,
+designedForFamilies: false,
+gender: MobileAdGender.unknown, 
+testDevices: <String>["7C61AB7F2B5F7A21A060B681001F85E9"], 
+);
+
+InterstitialAd searchPageInterstitial = InterstitialAd(
+
+  adUnitId: "ca-app-pub-6964159613326022/3428964538",
+  targetingInfo: targetingInfo,
+  listener: (MobileAdEvent event) {
+    //print("InterstitialAd event is $event");
+  },
+);
 
 class Search extends StatefulWidget {
   Search({Key key, this.title}) : super(key: key);
@@ -35,6 +55,9 @@ class _SearchState extends State<Search> {
 
   @override
   Widget build(BuildContext context) {
+    FirebaseAdMob.instance.initialize(appId: "ca-app-pub-6964159613326022~6385164891").then((response){
+      searchPageInterstitial..load()..show();
+    }); 
     return Scaffold(
       backgroundColor: Colors.black,
       body: Container(
@@ -168,6 +191,7 @@ class _WordSuggestionList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    
     final textTheme = Theme.of(context).textTheme.subhead;
     return ListView.builder(
       itemCount: suggestions.length,

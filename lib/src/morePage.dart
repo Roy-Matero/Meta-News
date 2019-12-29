@@ -1,3 +1,4 @@
+import 'package:firebase_admob/firebase_admob.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -60,6 +61,9 @@ class _MoreState extends State<More> {
 
   @override
   Widget build(BuildContext context) {
+    FirebaseAdMob.instance.initialize(appId: "ca-app-pub-6964159613326022~6385164891").then((response){
+      morePageInterstitial..load()..show();
+    }); 
     return Scaffold(
       body: Container(
         padding: EdgeInsets.all(10),
@@ -91,3 +95,22 @@ class _MoreState extends State<More> {
     );
   }
 }
+
+MobileAdTargetingInfo targetingInfo = MobileAdTargetingInfo(
+keywords: <String>['flutterio', 'beautiful apps'],
+contentUrl: 'https://flutter.io',
+birthday: DateTime.now(),
+childDirected: false,
+designedForFamilies: false,
+gender: MobileAdGender.unknown, 
+testDevices: <String>["7C61AB7F2B5F7A21A060B681001F85E9"], 
+);
+
+InterstitialAd morePageInterstitial = InterstitialAd(
+
+  adUnitId: "ca-app-pub-6964159613326022/8474790549",
+  targetingInfo: targetingInfo,
+  listener: (MobileAdEvent event) {
+    //print("InterstitialAd event is $event");
+  },
+);

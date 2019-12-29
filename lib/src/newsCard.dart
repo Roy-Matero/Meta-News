@@ -1,3 +1,4 @@
+import 'package:firebase_admob/firebase_admob.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -68,7 +69,7 @@ class NewsCard extends StatelessWidget {
                             style: TextStyle(fontSize: 16),
                           ),
                           Text(
-                            author != null && author.length < 50 ? author : "",
+                            author != null && author.length < 30 ? author : "",
                             style: TextStyle(
                               fontSize: 10,
                             ),
@@ -97,3 +98,4 @@ class NewsCard extends StatelessWidget {
     );
   }
 }
+

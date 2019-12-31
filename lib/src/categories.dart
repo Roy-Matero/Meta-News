@@ -8,6 +8,7 @@ final List<String> categories = [
   "Business",
   "Politics",
   "Art",
+  "Music",
   "Health",
 ];
 

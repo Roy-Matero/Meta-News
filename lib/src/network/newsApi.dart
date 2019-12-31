@@ -10,7 +10,7 @@ import 'package:http/http.dart' as http;
 
 
 final apiKey = "3e098666ac9b4a6c85b716074a9f0475"; 
-var queryText = "top-headlines";
+var queryText = "everything";
 
 class Article {
   final Map source;
@@ -65,7 +65,7 @@ class _NewsApiState extends State<NewsApi> {
 
   Future<Null> refresListArticle() async {
     var counter = 1;
-    counter % 2 == 0 
+    counter % 2 != 0 
     ? queryText = "top-headlines"
     : queryText = "everything";
     counter += 1;
@@ -79,7 +79,7 @@ class _NewsApiState extends State<NewsApi> {
 
   Future<List<Article>> fetchArticles() async {
     var response = await http.get(
-        "https://newsapi.org/v2/$queryText?q=${categories[urlIndex]}&sortBy=time&apiKey=$apiKey");
+        "https://newsapi.org/v2/top-headlines?q=${categories[urlIndex]}&sortBy=time&apiKey=$apiKey");
 
 
     if (response.statusCode == 200) {

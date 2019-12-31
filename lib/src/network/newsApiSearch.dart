@@ -1,4 +1,3 @@
-import '../categories.dart';
 import '../newsCard.dart';
 import '../newsDetail.dart';
 import 'package:flutter/material.dart';
@@ -98,6 +97,8 @@ class _NewsApiSearchState extends State<NewsApiSearch> {
                       imageToUrl: article.urlToImage,
                       source: article.source,
                       author: article.author,
+                      url: article.url,
+                      publishTime: article.publishedAt,
                     ))
                 .toList();
 

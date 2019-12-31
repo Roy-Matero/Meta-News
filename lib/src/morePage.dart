@@ -1,6 +1,9 @@
+import 'dart:ui';
+
 import 'package:firebase_admob/firebase_admob.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
+//import '../../../../Development/flutter/packages/flutter/lib/cupertino.dart';
 
 
 class More extends StatefulWidget {
@@ -78,7 +81,10 @@ class _MoreState extends State<More> {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
-          Text(""),
+          Text("Please note that this app may contain development errors, I'll try as much to correct them, for the best user experience possible."),
+          SizedBox(height: 10,),
+          Text("Be sure to keep updating this app to get the best out of it",
+          style: TextStyle(),),
         ],
       ),
       ),

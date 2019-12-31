@@ -100,7 +100,7 @@ class NewsCard extends StatelessWidget {
                         children: <Widget>[
                           Text(
                             source["name"] != null ? source["name"] : "Unknown",
-                            style: TextStyle(fontSize: 16),
+                            style: TextStyle(fontSize: 14),
                           ),
                           Text(
                             author != null && author.length < 30 ? author : "",

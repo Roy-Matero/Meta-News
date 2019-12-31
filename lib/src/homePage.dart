@@ -1,10 +1,10 @@
+import 'network/newsApi.dart';
 import 'searchPage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_admob/firebase_admob.dart';
 
 import 'morePage.dart';
-import 'tabView.dart';
 import 'categories.dart';
 
 class MyHomePage extends StatefulWidget {
@@ -14,6 +14,8 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage>
     with SingleTickerProviderStateMixin {
+
+      TabController tabController;
   @override
   void initState() {
     super.initState();
@@ -38,7 +40,12 @@ class _MyHomePageState extends State<MyHomePage>
               tabs: List.generate(categories.length, (index) {
                 return Category(index);
               })),
-        body: TabView());
+        body: TabBarView(controller: tabController,
+       children: List.generate(categories.length, (index){
+         return NewsApi(index);
+       }) 
+      )
+        );
   }
 }
 
